@@ -18,7 +18,7 @@ import edu.sjsu.cmpe.procurement.domain.StompDto;
  *
  */
 
-@Every("40s")
+@Every("300s")
 public class EveryTestJob extends Job{
 
 	@Override
