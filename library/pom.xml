@@ -11,7 +11,7 @@
 	<properties>
 		<dropwizard.version>0.6.2</dropwizard.version>
 	</properties>
-
+	
 	<repositories>
 		<repository>
 			<id>sonatype-nexus-snapshots</id>
@@ -31,10 +31,25 @@
 			<version>${dropwizard.version}</version>
 		</dependency>
 		<dependency>
-            <groupId>com.yammer.dropwizard</groupId>
-            <artifactId>dropwizard-views</artifactId>
-            <version>${dropwizard.version}</version>
-        </dependency>
+			<groupId>com.yammer.dropwizard</groupId>
+			<artifactId>dropwizard-views</artifactId>
+			<version>${dropwizard.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jms_1.1_spec</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.fusesource.stompjms</groupId>
+			<artifactId>stompjms-client</artifactId>
+			<version>1.13</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-core</artifactId>
+			<version>5.3.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>

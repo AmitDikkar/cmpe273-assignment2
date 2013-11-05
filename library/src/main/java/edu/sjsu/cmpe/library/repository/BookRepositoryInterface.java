@@ -44,4 +44,10 @@ public interface BookRepositoryInterface {
      *            an ISBN of the book to be deleted
      */
     void delete(Long isbn);
+    
+    /**
+     * @param isbn
+     * receive books from the topic and add them to repository
+     */
+    void receiveBooks(String message);
 }

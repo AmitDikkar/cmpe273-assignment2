@@ -24,7 +24,7 @@ public class BooksDto extends LinksDto {
     public List<Book> getBooks() {
 	return books;
     }
-
+	
     /**
      * @param book
      *            the book to set

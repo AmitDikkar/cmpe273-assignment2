@@ -17,11 +17,15 @@ import javax.ws.rs.core.Response;
 import com.yammer.dropwizard.jersey.params.LongParam;
 import com.yammer.metrics.annotation.Timed;
 
+import edu.sjsu.cmpe.library.config.ConfigElements;
 import edu.sjsu.cmpe.library.domain.Book;
 import edu.sjsu.cmpe.library.domain.Book.Status;
 import edu.sjsu.cmpe.library.dto.BookDto;
 import edu.sjsu.cmpe.library.dto.BooksDto;
 import edu.sjsu.cmpe.library.dto.LinkDto;
+import edu.sjsu.cmpe.library.dto.StompAsyncListener;
+import edu.sjsu.cmpe.library.dto.StompDto;
+import edu.sjsu.cmpe.library.repository.BookRepository;
 import edu.sjsu.cmpe.library.repository.BookRepositoryInterface;
 
 @Path("/v1/books")
@@ -29,7 +33,9 @@ import edu.sjsu.cmpe.library.repository.BookRepositoryInterface;
 @Consumes(MediaType.APPLICATION_JSON)
 public class BookResource {
     /** bookRepository instance */
-    private final BookRepositoryInterface bookRepository;
+    //private final BookRepositoryInterface bookRepository;
+	public static BookRepository bookRepository;
+	StompAsyncListener listener;
 
     /**
      * BookResource constructor
@@ -37,8 +43,12 @@ public class BookResource {
      * @param bookRepository
      *            a BookRepository instance
      */
-    public BookResource(BookRepositoryInterface bookRepository) {
+    public BookResource(BookRepository bookRepository, StompAsyncListener listener) {
 	this.bookRepository = bookRepository;
+	this.listener = listener;
+	//this.bookRepository.seedData();
+	/*this.listener = listener;
+	this.listener.setBookRepository(bookRepository);*/
     }
 
     @GET
@@ -85,10 +95,23 @@ public class BookResource {
     @Path("/{isbn}")
     @Timed(name = "update-book-status")
     public Response updateBookStatus(@PathParam("isbn") LongParam isbn,
-	    @DefaultValue("available") @QueryParam("status") Status status) {
+	    @DefaultValue("available") @QueryParam("status") Status status) throws Exception {
 	Book book = bookRepository.getBookByISBN(isbn.get());
 	book.setStatus(status);
-
+	StompDto stompDto = new StompDto();
+	System.out.println("this is "+ConfigElements.getLibraryName());
+	String stringStatus = Status.lost.toString();
+	//StompAsyncListener listener = new StompAsyncListener();
+	//-------------------listener.setBookRepository(bookRepository);
+	/*BookRepository br;
+	br = listener.getBookRepository();
+	br = bookRepository;
+	listener.setBookRepository(br);*/
+	//listener.setupListner();
+	if(stringStatus == "lost"){
+		stompDto.sendMessage(isbn);
+	}
+	
 	BookDto bookResponse = new BookDto(book);
 	String location = "/books/" + book.getIsbn();
 	bookResponse.addLink(new LinkDto("view-book", location, "GET"));
@@ -106,5 +129,13 @@ public class BookResource {
 
 	return bookResponse;
     }
-}
 
+	/**
+	 * @return the bookRepository
+	 */
+	public BookRepository getBookRepository() {
+		return bookRepository;
+	}
+    
+    
+}
