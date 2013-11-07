@@ -12,7 +12,24 @@ $(document).ready(function(){
     		$(realId).removeAttr("disabled");
     	}
     }
-});
+    
+    var url="ws://54.215.210.214:61623"; 
+    var login = "admin"; 
+    var password = "password"; 
+    var destination = "/topic/69169.book.*"; 
+    var client = Stomp.client(url); 
+    client.debug = function(str) { 
+    	$("#debug").append(str + "\n"); 
+    	}; 
+    	client.connect(login,password, function(frame){  
+    		client.debug("connected to Stomp"); 
+    		client.subscribe(destination, function(message){ 
+    			alert(message.body); 
+    			window.location.reload(); 
+    			}); 
+    		});
+          });
+          
 
 $(":button").click(function() {
 	var isbn = this.id;
