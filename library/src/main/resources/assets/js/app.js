@@ -24,7 +24,7 @@ $(document).ready(function(){
     	client.connect(login,password, function(frame){  
     		client.debug("connected to Stomp"); 
     		client.subscribe(destination, function(message){ 
-    			alert(message.body); 
+    			
     			window.location.reload(); 
     			}); 
     		});
