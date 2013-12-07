@@ -25,7 +25,7 @@ import org.json.simple.JSONObject;
  */
 public class HttpDto {
 	CloseableHttpClient httpclient = HttpClients.createDefault();
-	String target = "http://54.215.210.214:9000/orders";
+	String target = "http://54.219.156.168:9000/orders";
 	
 	public void sendRequest(JSONObject message){
 		HttpPost httpPost = new HttpPost(target);

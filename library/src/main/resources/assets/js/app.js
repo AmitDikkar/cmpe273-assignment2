@@ -13,7 +13,7 @@ $(document).ready(function(){
     	}
     }
     
-    var url="ws://54.215.210.214:61623"; 
+    var url="ws://54.219.156.168:61623"; 
     var login = "admin"; 
     var password = "password"; 
     var destination = "/topic/69169.book.*"; 
@@ -23,9 +23,8 @@ $(document).ready(function(){
     	}; 
     	client.connect(login,password, function(frame){  
     		client.debug("connected to Stomp"); 
-    		client.subscribe(destination, function(message){ 
-    			
-    			window.location.reload(); 
+    		client.subscribe(destination, function(message){
+    			window.location.reload();
     			}); 
     		});
           });

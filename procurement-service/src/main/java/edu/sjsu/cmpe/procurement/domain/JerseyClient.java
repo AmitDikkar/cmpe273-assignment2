@@ -21,8 +21,8 @@ import com.sun.jersey.api.client.WebResource;
  */
 public class JerseyClient {
 	private Client jerseyClient = Client.create();
-	String targetURI = "http://54.215.210.214:9000/orders";
-	String getURI = "http://54.215.210.214:9000/orders/69169";
+	String targetURI = "http://54.219.156.168:9000/orders";
+	String getURI = "http://54.219.156.168:9000/orders/69169";
 	String contentType = "application/json";
 	ClientResponse response;
 	
